@@ -1,0 +1,17 @@
+kind: pipeline
+name: build
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: username
+    password:
+      from_secret: password
+    repo: codehimanshu/get-video-duration
+    tags:
+      - latest
+      - ${DRONE_TAG}
+  when:
+    event: tag
