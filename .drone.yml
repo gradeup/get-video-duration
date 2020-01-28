@@ -1,0 +1,30 @@
+kind: pipeline
+name: build
+
+steps:
+- name: publish
+  image: plugins/ecr
+  settings:
+    access_key:
+      from_secret: aws_access_key_id
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: us-east-1
+    secret_key:
+      from_secret: aws_secret_access_key
+    repo: 441584963616.dkr.ecr.us-east-1.amazonaws.com/svc/get-video-duration
+    registry: 441584963616.dkr.ecr.us-east-1.amazonaws.com
+    build_args_from_env:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+    build_args:
+      - AWS_DEFAULT_REGION=us-east-1
+    tags:
+      - latest
+      - ${DRONE_TAG}
+  when:
+    event: tag
