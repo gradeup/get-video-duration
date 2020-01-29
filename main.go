@@ -9,6 +9,11 @@ import (
 	ffprobe "github.com/vansante/go-ffprobe"
 )
 
+func status(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(200)
+	w.Write([]byte("Ok"))
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	url := r.FormValue("url")
 	if url == "" {
@@ -28,6 +33,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", status)
+	http.HandleFunc("/duration", handler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
