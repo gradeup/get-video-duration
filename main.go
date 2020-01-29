@@ -29,7 +29,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	duration := fmt.Sprintf("%f", data.Format.Duration().Seconds())
 	w.WriteHeader(200)
-	w.Write([]byte("{duration:" + duration + "}"))
+	w.Write([]byte("{\"duration\":" + duration + "}"))
 }
 
 func main() {
