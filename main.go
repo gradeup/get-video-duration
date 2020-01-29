@@ -15,7 +15,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(400)
 		w.Write([]byte("Url Missing"))
 	}
-	data, err := ffprobe.GetProbeData(url, 10000*time.Millisecond)
+	data, err := ffprobe.GetProbeData(url, 2000*time.Millisecond)
 	if err != nil {
 		log.Printf("Error getting data: %v", err)
 		w.WriteHeader(400)
