@@ -19,17 +19,20 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if url == "" {
 		w.WriteHeader(400)
 		w.Write([]byte("Url Missing"))
+		return
 	}
 	data, err := ffprobe.GetProbeData(url, 2000*time.Millisecond)
 	if err != nil {
 		log.Printf("Error getting data: %v", err)
 		w.WriteHeader(400)
 		w.Write([]byte("Some Error Occurred"))
+		return
 	}
 
 	duration := fmt.Sprintf("%f", data.Format.Duration().Seconds())
 	w.WriteHeader(200)
 	w.Write([]byte("{\"duration\":" + duration + "}"))
+	return
 }
 
 func main() {
