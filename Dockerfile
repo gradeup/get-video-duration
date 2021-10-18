@@ -10,12 +10,12 @@ COPY go.sum .
 RUN go mod download
 
 # Add source
-ADD . .
+COPY . .
 
 # Build the binary
 RUN CGO_ENABLED=0  go build -o duration *.go
 
-FROM alpine
+FROM alpine:3.13.6
 # Import from builder.
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
