@@ -1,0 +1,25 @@
+version : 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@7.2.0
+
+
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          extra-build-args: " --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --build-arg AWS_DEFAULT_REGION=$AWS_REGION"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          no-output-timeout: 20m
+          region: AWS_REGION
+          dockerfile: docker/gradeup/Dockerfile
+          repo: codehimanshu/get-video-duration
+          skip-when-tags-exist: false
+          tag: "latest,$CIRCLE_TAG"
+          filters:
+           branches:
+            ignore: /.*/
+           tags:
+            only: /.*/
