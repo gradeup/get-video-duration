@@ -15,3 +15,7 @@ jobs:
           docker build -t codehimanshu/get-video-duration:$TAG .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push codehimanshu/get-video-duration:$TAG
+workflows:
+ build:
+  jobs: 
+    - build
