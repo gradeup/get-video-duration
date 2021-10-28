@@ -12,7 +12,7 @@ jobs:
       # build and push Docker image
       - run: |
           TAG=$CIRCLE_TAG
-          docker build -t codehimanshu/get-video-duration:$TAG .
+          docker build -t codehimanshu/get-video-duration:$CIRCLE_BRANCH .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push codehimanshu/get-video-duration:$TAG
 workflows:
