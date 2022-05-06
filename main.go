@@ -16,7 +16,6 @@ func status(w http.ResponseWriter, r *http.Request) {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	url := r.FormValue("url")
-	log.Printf("Url received: ", url)
 	if url == "" {
 		w.WriteHeader(400)
 		w.Write([]byte("Url Missing"))
